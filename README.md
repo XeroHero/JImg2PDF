@@ -45,6 +45,32 @@ Convert all images in a directory (on Unix-like systems):
 java -jar JImg2PDF.jar output.pdf images/*
 ```
 
+## Screenshots
+
+### Main Application Window
+![Main Window](images/Screenshot%202026-01-20%20at%2018.04.34.png)
+
+### Adding Multiple Images
+![Adding Images](images/Screenshot%202026-01-20%20at%2018.04.42.png)
+
+### Image Preview and Selection
+![Image Preview](images/Screenshot%202026-01-20%20at%2018.05.03.png)
+
+### PDF Generation Progress
+![Progress](images/Screenshot%202026-01-20%20at%2018.05.09.png)
+
+### Success Notification
+![Success](images/Screenshot%202026-01-20%20at%2018.05.15.png)
+
+### Generated PDF Preview (Page 1)
+![PDF Page 1](images/Screenshot%202026-01-20%20at%2018.05.24.png)
+
+### Generated PDF Preview (Page 2)
+![PDF Page 2](images/Screenshot%202026-01-20%20at%2018.05.34.png)
+
+### Generated PDF Preview (Page 3)
+![PDF Page 3](images/Screenshot%202026-01-20%20at%2018.05.39.png)
+
 ## Supported Image Formats
 
 - JPEG (.jpg, .jpeg)

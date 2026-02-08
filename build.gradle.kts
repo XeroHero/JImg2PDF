@@ -8,7 +8,7 @@ application {
 }
 
 group = "dev.xerohero"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"  // Using semantic versioning for release
 
 repositories {
     mavenCentral()
@@ -38,12 +38,34 @@ tasks.run<JavaExec> {
     )
 }
 
+// Configure the main JAR task
 tasks.jar {
+    archiveBaseName.set("JImg2PDF")
+    archiveVersion.set("")
+    archiveClassifier.set("")
+    
     manifest {
         attributes["Main-Class"] = "dev.xerohero.Main"
+        attributes["Implementation-Title"] = "JImg2PDF"
+        attributes["Implementation-Version"] = archiveVersion
+        attributes["Created-By"] = "${System.getProperty("java.version")} (${System.getProperty("java.vendor")})"
     }
+    
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
         exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
     }
+    
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Create a distribution ZIP with the JAR and README
+tasks.register<Zip>("dist") {
+    dependsOn("jar")
+    
+    from("$buildDir/libs/JImg2PDF.jar")
+    from("README.md")
+    from("LICENSE")
+    
+    archiveFileName.set("JImg2PDF-${version}.zip")
+    destinationDirectory.set(file("$buildDir/distributions"))
 }

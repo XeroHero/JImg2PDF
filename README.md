@@ -1,5 +1,5 @@
 # JImg2PDF
-<img width="1408" height="768" alt="Gemini_Generated_Image_mx1uo7mx1uo7mx1u" src="https://github.com/user-attachments/assets/058152a6-e8e7-4c40-8138-42c56b15643b" />
+![JImg2PDF Logo](Gemini_Generated_Image_mx1uo7mx1uo7mx1u.png)
 
 A simple Java utility to convert multiple images into a single PDF file.
 

@@ -95,7 +95,7 @@ public class ImageUtils {
             // Apply contrast first (centered around 128)
             int value = (int) ((i - 128) * contrastFactor + 128);
             // Then apply brightness
-            value += brightnessFactor;
+            value = Math.round(value + brightnessFactor);
             // Clamp to 0-255
             brightTable[i] = (short) Math.max(0, Math.min(255, value));
         }

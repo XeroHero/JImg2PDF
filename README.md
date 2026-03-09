@@ -54,9 +54,6 @@ java -jar JImg2PDF.jar output.pdf images/*
 ### Image Preview and Selection
 ![Image Preview](images/Screenshot%202026-01-20%20at%2018.05.03.png)
 
-### Generated PDF Preview (Page 1)
-![PDF Page 1](images/Screenshot%202026-01-20%20at%2018.05.24.png)
-
 ## Supported Image Formats
 
 - JPEG (.jpg, .jpeg)

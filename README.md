@@ -51,9 +51,6 @@ java -jar JImg2PDF.jar output.pdf images/*
 ### Main Application Window
 ![Main Window](images/Screenshot%202026-01-20%20at%2018.04.34.png)
 
-### Adding Multiple Images
-![Adding Images](images/Screenshot%202026-01-20%20at%2018.04.42.png)
-
 ### Image Preview and Selection
 ![Image Preview](images/Screenshot%202026-01-20%20at%2018.05.03.png)
 

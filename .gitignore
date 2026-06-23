@@ -29,3 +29,5 @@ out/*
 packaging/*
 JImg2PDF.app/*
 .idea/*
+/.gradle/
+/.idea/

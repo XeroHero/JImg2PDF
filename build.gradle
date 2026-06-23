@@ -1,27 +1,42 @@
 plugins {
-    id("java")
-    application
+    id 'java'
+    id 'application'
+    // 1. Add the official OpenJFX plugin
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 application {
-    mainClass.set("dev.xerohero.Main")
+    // 2. Point to your new JavaFX Application class
+    mainClass.set('dev.xerohero.MainApp')
 }
 
 group = "dev.xerohero"
-version = "1.0.0"  // Using semantic versioning for release
+version = "1.0.0"
 
 repositories {
     mavenCentral()
 }
 
+// 3. Configure the JavaFX modules you require
+javafx {
+    version = "21" // Matches standard LTS versions
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
+}
+
 dependencies {
     // PDF generation
     implementation("org.apache.pdfbox:pdfbox:3.0.2")
-    // Image processing
     implementation("org.apache.pdfbox:pdfbox-tools:3.0.2")
+
     // File utilities
     implementation("commons-io:commons-io:2.15.1")
-    
+
+    // ONNX Runtime for local AI execution
+    implementation("com.microsoft.onnxruntime:onnxruntime:1.18.0")
+
+    // BoofCV (Pure Java) - Notice we drop boofcv-swing and use core/io
+    implementation("org.boofcv:boofcv-core:0.43.1")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -31,41 +46,23 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.run<JavaExec> {
-    jvmArgs = listOf(
-        "--add-exports", "java.desktop/com.apple.laf=ALL-UNNAMED",
-        "--add-exports", "java.desktop/com.apple.eawt=ALL-UNNAMED"
-    )
-}
-
 // Configure the main JAR task
 tasks.jar {
     archiveBaseName.set("JImg2PDF")
     archiveVersion.set("")
     archiveClassifier.set("")
-    
+
     manifest {
         attributes["Main-Class"] = "dev.xerohero.Main"
         attributes["Implementation-Title"] = "JImg2PDF"
-        attributes["Implementation-Version"] = archiveVersion
+        attributes["Implementation-Version"] = version // Using the project version string safely
         attributes["Created-By"] = "${System.getProperty("java.version")} (${System.getProperty("java.vendor")})"
     }
-    
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
+
+    // FIXED: Access the runtimeClasspath collection directly as a file tree
+    from(configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }) {
         exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
     }
-    
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
 
-// Create a distribution ZIP with the JAR and README
-tasks.register<Zip>("dist") {
-    dependsOn("jar")
-    
-    from("$buildDir/libs/JImg2PDF.jar")
-    from("README.md")
-    from("LICENSE")
-    
-    archiveFileName.set("JImg2PDF-${version}.zip")
-    destinationDirectory.set(file("$buildDir/distributions"))
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
